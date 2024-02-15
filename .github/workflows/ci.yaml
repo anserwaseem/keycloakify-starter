@@ -13,9 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: cd keycloakify-starter && yarn install
-      - run: cd keycloakify-starter && yarn build
-      - run: cd keycloakify-starter && npx keycloakify
+      - run: |
+          cd keycloakify-starter
+          yarn install
+          yarn build
+          npx keycloakify
 
   check_if_version_upgraded:
     name: Check if version upgrade
@@ -27,6 +29,8 @@ jobs:
       to_version: ${{ steps.step1.outputs.to_version }}
       is_upgraded_version: ${{ steps.step1.outputs.is_upgraded_version }}
     steps:
+      - uses: actions/checkout@v2
+      - run: ln -s keycloakify-starter/package.json package.json
       - uses: garronej/ts-ci@v2.1.0
         id: step1
         with:
@@ -41,11 +45,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: cd keycloakify-starter && yarn install
-      - run: cd keycloakify-starter && yarn build
-      - run: cd keycloakify-starter && npx keycloakify
-      - run: cd keycloakify-starter && mv dist_keycloak/target/retrocompat-*.jar retrocompat-keycloak-theme.jar
-      - run: cd keycloakify-starter && mv dist_keycloak/target/*.jar keycloak-theme.jar
+      - run: |
+          cd keycloakify-starter
+          yarn install
+          yarn build
+          npx keycloakify
+          mv dist_keycloak/target/retrocompat-*.jar retrocompat-keycloak-theme.jar
+          mv dist_keycloak/target/*.jar keycloak-theme.jar
       - uses: softprops/action-gh-release@v1
         with:
           name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
