@@ -13,7 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - uses: bahmutov/npm-install@v1
       - run: cd keycloakify-starter && yarn install
       - run: cd keycloakify-starter && yarn build
       - run: cd keycloakify-starter && npx keycloakify
@@ -42,11 +41,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - uses: bahmutov/npm-install@v1
-      - run: yarn build
-      - run: npx keycloakify
-      - run: mv dist_keycloak/target/retrocompat-*.jar retrocompat-keycloak-theme.jar
-      - run: mv dist_keycloak/target/*.jar keycloak-theme.jar
+      - run: cd keycloakify-starter && yarn install
+      - run: cd keycloakify-starter && yarn build
+      - run: cd keycloakify-starter && npx keycloakify
+      - run: cd keycloakify-starter && mv dist_keycloak/target/retrocompat-*.jar retrocompat-keycloak-theme.jar
+      - run: cd keycloakify-starter && mv dist_keycloak/target/*.jar keycloak-theme.jar
       - uses: softprops/action-gh-release@v1
         with:
           name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
