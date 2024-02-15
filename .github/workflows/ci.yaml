@@ -14,9 +14,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - uses: bahmutov/npm-install@v1
-      - run: cd keycloakify-starter
-      - run: yarn build
-      - run: npx keycloakify
+      - run: cd keycloakify-starter && yarn install
+      - run: cd keycloakify-starter && yarn build
+      - run: cd keycloakify-starter && npx keycloakify
 
   check_if_version_upgraded:
     name: Check if version upgrade
