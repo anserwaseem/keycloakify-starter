@@ -30,10 +30,10 @@ jobs:
       is_upgraded_version: ${{ steps.step1.outputs.is_upgraded_version }}
     steps:
       - uses: actions/checkout@v2
-      - run: ln -s keycloakify-starter/package.json package.json
-      - uses: garronej/ts-ci@v2.1.0
+      - uses: JiPaix/package-json-updated-action@v1.0.3
         id: step1
         with:
+          path: keycloakify-starter/package.json
           action_name: is_package_json_version_upgraded
           branch: ${{ github.head_ref || github.ref }}
 
