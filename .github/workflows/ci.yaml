@@ -34,6 +34,8 @@ jobs:
         id: step1
         with:
           path: keycloakify-starter/package.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   create_github_release:
     runs-on: ubuntu-latest
