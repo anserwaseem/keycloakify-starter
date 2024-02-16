@@ -34,8 +34,6 @@ jobs:
         id: step1
         with:
           path: keycloakify-starter/package.json
-          action_name: is_package_json_version_upgraded
-          branch: ${{ github.head_ref || github.ref }}
 
   create_github_release:
     runs-on: ubuntu-latest
